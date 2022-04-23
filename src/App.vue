@@ -1,10 +1,13 @@
 <template>
   <div class="news-channel">
-    <button class="news-channel__get-button" @click="getPosts">
+    <button
+      v-if="allPosts.length === 0"
+      class="news-channel__get-button"
+      @click="getPosts"
+    >
       Загрузить новости
     </button>
-    <button class="news-channel__add-button" @click="onAddClick"></button>
-    <PostsList v-if="allPosts" />
+    <NewsChannel v-if="allPosts.length > 0" />
     <transition name="fade">
       <Loader v-if="loading" />
     </transition>
@@ -24,7 +27,7 @@
 import { mapActions, mapState, mapGetters } from "vuex";
 import Loader from "./components/Loader.vue";
 import Error from "./components/Error.vue";
-import PostsList from "./components/PostsList.vue";
+import NewsChannel from "./components/NewsChannel.vue";
 import PopupConfirm from "./components/PopupConfirm.vue";
 import PopupPost from "./components/PopupPost.vue";
 
@@ -33,9 +36,9 @@ export default {
   components: {
     Loader,
     Error,
-    PostsList,
     PopupConfirm,
     PopupPost,
+    NewsChannel,
   },
   computed: {
     ...mapGetters(["allPosts"]),
@@ -48,14 +51,10 @@ export default {
     ]),
   },
   methods: {
-    ...mapActions(["setPosts", "setPopupAddVisible"]),
+    ...mapActions(["setPosts"]),
     getPosts() {
       console.log("sg");
       this.setPosts();
-    },
-    onAddClick() {
-      console.log("d");
-      this.setPopupAddVisible(true);
     },
   },
 };
@@ -86,19 +85,6 @@ body,
   padding: 10px 15px;
   border-radius: 10px;
   color: white;
-}
-
-.news-channel__add-button {
-  border: none;
-  background-color: rgb(34, 241, 151);
-  padding: 15px 15px;
-  border-radius: 50%;
-  color: white;
-  align-self: flex-end;
-  background-image: url("./assets/addButtonWhite.png");
-  background-size: 10px;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 .news-channel__get-button:hover {

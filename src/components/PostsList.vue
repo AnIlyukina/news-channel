@@ -2,27 +2,46 @@
   <section class="posts-list">
     <ul class="posts-list__grid">
       <PostItem
-        v-for="(post, index) in allPosts"
+        v-for="(post, index) in items"
         :index="index"
         :key="index"
         :post="post"
+      />
+      <Paginate
+        v-model="page"
+        :page-count="pageCount"
+        :click-handler="handleChangePage"
+        :prev-text="'Назад'"
+        :next-text="'Впeред'"
+        :container-class="'pagination'"
       />
     </ul>
   </section>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 import PostItem from "./PostItem.vue";
+import paginationMixin from "../mixins/MixinPagination";
+import { mapGetters } from "vuex";
 
 export default {
   name: "PostsList",
   components: {
     PostItem,
   },
+
   computed: {
     ...mapGetters(["allPosts"]),
   },
+  watch: {
+    allPosts: function () {
+      return this.setUpPagination(this.allPosts);
+    },
+  },
+  mounted() {
+    this.setUpPagination(this.allPosts);
+  },
+  mixins: [paginationMixin],
 };
 </script>
 
