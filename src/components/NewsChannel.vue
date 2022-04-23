@@ -1,6 +1,6 @@
 <template>
   <main class="news-channel">
-    <h1 class="news-channel__title">Новости</h1>
+    <h1 class="news-channel__title">Инфо-блог</h1>
     <button class="news-channel__add-button" @click="onAddClick"></button>
     <PostsList />
   </main>
@@ -37,7 +37,7 @@ export default {
 
 .news-channel__add-button {
   border: none;
-  background-color: rgb(160, 193, 179);
+  background-color: rgb(233, 152, 152);
   padding: 20px 20px;
   border-radius: 50%;
   color: white;
@@ -52,5 +52,11 @@ export default {
 .news-channel__add-button:hover {
   opacity: 0.5;
   cursor: pointer;
+}
+
+@media (max-width: 560px) {
+  .news-channel__title {
+    font-size: 25px;
+  }
 }
 </style>

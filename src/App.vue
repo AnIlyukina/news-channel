@@ -18,7 +18,7 @@
       <PopupConfirm v-if="popupVisible" />
     </transition>
     <transition name="fade">
-      <PopupPost v-if="popupAddVisible" :editedPost="editedPost" />
+      <PopupNews v-if="popupAddVisible" :editedPost="editedPost" />
     </transition>
   </div>
 </template>
@@ -29,7 +29,7 @@ import Preloader from "./components/Preloader.vue";
 import Error from "./components/Error.vue";
 import NewsChannel from "./components/NewsChannel.vue";
 import PopupConfirm from "./components/PopupConfirm.vue";
-import PopupPost from "./components/PopupPost.vue";
+import PopupNews from "./components/PopupNews.vue";
 
 export default {
   name: "App",
@@ -37,7 +37,7 @@ export default {
     Preloader,
     Error,
     PopupConfirm,
-    PopupPost,
+    PopupNews,
     NewsChannel,
   },
   computed: {
@@ -80,9 +80,9 @@ body,
   min-width: 320px;
   background: radial-gradient(
     circle,
-    rgba(208, 175, 175, 0.5) 0%,
+    rgba(198, 198, 198, 0.5) 0%,
     rgba(204, 175, 192, 0.4) 52%,
-    rgba(184, 239, 242, 0.5) 100%
+    rgba(0, 0, 0, 0.5) 100%
   );
 }
 .app__get-button {

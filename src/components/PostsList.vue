@@ -12,9 +12,10 @@
       v-model="page"
       :page-count="pageCount"
       :click-handler="handleChangePage"
-      :prev-text="'Назад'"
-      :next-text="'Впeред'"
+      :prev-text="'<<'"
+      :next-text="'>>'"
       :container-class="'pagination'"
+      :page-class="'page-item'"
     />
   </section>
 </template>
@@ -29,7 +30,6 @@ export default {
   components: {
     PostItem,
   },
-
   computed: {
     ...mapGetters(["allPosts"]),
   },
@@ -72,8 +72,17 @@ export default {
   width: 300px;
   list-style-type: none;
   justify-content: space-between;
-  font-weight: 500;
+  font-weight: 900;
   font-size: 20px;
-  color: rgb(55, 105, 105);
+  color: rgb(238, 131, 131);
+}
+
+.page-item {
+  padding: 0 5px;
+  border-radius: 10px;
+  color: rgb(111, 110, 110);
+}
+.active {
+  background-color: rgb(233, 152, 152);
 }
 </style>

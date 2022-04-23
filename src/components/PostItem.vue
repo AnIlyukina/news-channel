@@ -7,7 +7,7 @@
     <div class="posts-list__item-block posts-list__item-block_type_body">
       <p
         :class="[
-          isOpenAllBody ? 'posts-list__body active' : 'posts-list__body',
+          isOpenAllBody ? 'posts-list__body active-more' : 'posts-list__body',
         ]"
       >
         {{ post.body }}
@@ -56,7 +56,6 @@ export default {
       "setPopupType",
       "setEditedPost",
     ]),
-
     onDeleteClick() {
       console.log("s");
       this.setPopupType({
@@ -93,13 +92,10 @@ export default {
   display: flex;
   flex-direction: column;
   border: 1px solid rgb(147, 142, 142);
-  border-radius: 30px 0 30px 0;
   box-shadow: -1em 0 0.4em rgb(112, 112, 112);
 }
 .posts-list__item-block {
   display: flex;
-}
-.posts-list__item-block_type_title {
   justify-content: space-between;
 }
 
@@ -138,12 +134,13 @@ export default {
 .posts-list__more-button {
   display: flex;
   margin-left: 4px;
+  font-size: 20px;
   font-weight: 600;
   align-items: flex-end;
   transition: opacity 0.3s ease-in-out;
   color: gray;
 }
-.active {
+.active-more {
   height: 100%;
   overflow: visible;
 }
@@ -166,7 +163,6 @@ export default {
   background-position: start;
   background-repeat: no-repeat;
   color: rgba(0, 0, 0, 0.556);
-  align-self: end;
   margin-top: 5px;
   border: none;
   background-color: transparent;
@@ -177,5 +173,25 @@ export default {
 .posts-list__edit-button:hover {
   opacity: 0.5;
   cursor: pointer;
+}
+
+@media (max-width: 560px) {
+  .posts-list__title {
+    font-size: 14px;
+    padding: 0 10px 0 20px;
+  }
+
+  .posts-list__body {
+    font-size: 12px;
+    height: 30px;
+    max-width: 290px;
+  }
+
+  .posts-list__delete-button {
+    max-width: 30px;
+    width: 100%;
+    height: 20px;
+    background-size: 20px;
+  }
 }
 </style>
