@@ -1,7 +1,7 @@
 <template>
   <div class="error">
     <div class="error__popup">
-      <img class="error__icon" src="../assets/error.png" />
+      <img class="error__icon" src="../assets/icon__error.png" />
       <div class="error__close" @click="onCloseClick"></div>
       Ошибка:
       <span class="error__message">{{ message }}</span>
@@ -72,7 +72,7 @@ export default {
   top: 10px;
   right: 10px;
   cursor: pointer;
-  background-image: url("../assets/close.png");
+  background-image: url("../assets/icon__close.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;

@@ -136,7 +136,7 @@ export default {
   background-repeat: no-repeat;
   background-position: center;
   transition: 0.3s;
-  background-image: url("../assets/close.png");
+  background-image: url("../assets/icon__close.png");
   background-size: contain;
   margin-left: auto;
 }

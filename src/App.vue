@@ -1,15 +1,15 @@
 <template>
-  <div class="news-channel">
+  <div class="app">
     <button
       v-if="allPosts.length === 0"
-      class="news-channel__get-button"
+      class="app__get-button"
       @click="getPosts"
     >
-      Загрузить новости
+      Загрузить
     </button>
     <NewsChannel v-if="allPosts.length > 0" />
     <transition name="fade">
-      <Loader v-if="loading" />
+      <Preloader v-if="loading" />
     </transition>
     <transition name="fade">
       <Error v-if="errorMessage" :message="errorMessage" />
@@ -25,7 +25,7 @@
 
 <script>
 import { mapActions, mapState, mapGetters } from "vuex";
-import Loader from "./components/Loader.vue";
+import Preloader from "./components/Preloader.vue";
 import Error from "./components/Error.vue";
 import NewsChannel from "./components/NewsChannel.vue";
 import PopupConfirm from "./components/PopupConfirm.vue";
@@ -34,7 +34,7 @@ import PopupPost from "./components/PopupPost.vue";
 export default {
   name: "App",
   components: {
-    Loader,
+    Preloader,
     Error,
     PopupConfirm,
     PopupPost,
@@ -70,21 +70,41 @@ body,
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
 }
-.news-channel {
+.app {
   width: 100vw;
   height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  padding: 20px 200px 20px 200px;
+  flex-direction: column;
+  padding: 20px;
   min-width: 320px;
+  background: radial-gradient(
+    circle,
+    rgba(208, 175, 175, 0.5) 0%,
+    rgba(204, 175, 192, 0.4) 52%,
+    rgba(184, 239, 242, 0.5) 100%
+  );
 }
-.news-channel__get-button {
-  border: none;
-  background-color: cornflowerblue;
-  padding: 10px 15px;
-  border-radius: 10px;
+.app__get-button {
+  margin-top: 50px;
+  font-family: Helvetica;
+  letter-spacing: 0.4em;
+  font-weight: 600;
+  font-size: 20px;
+  text-align: center;
+  color: rgb(71, 126, 232);
+  cursor: pointer;
+  border: 1px solid rgba(71, 126, 232, 0.5);
+  padding: 15px 30px;
+  border-color: none;
+  border-radius: 30px;
+  transition: all 600ms cubic-bezier(0.2, 0, 0, 0.8);
+}
+
+.app__get-button:hover {
+  background-color: rgba(71, 126, 232, 0.5);
   color: white;
+  outline-offset: 500px;
 }
 
 .news-channel__get-button:hover {

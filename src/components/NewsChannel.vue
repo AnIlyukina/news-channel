@@ -1,8 +1,9 @@
 <template>
-  <section>
+  <main class="news-channel">
+    <h1 class="news-channel__title">Новости</h1>
     <button class="news-channel__add-button" @click="onAddClick"></button>
     <PostsList />
-  </section>
+  </main>
 </template>
 
 <script>
@@ -23,28 +24,33 @@ export default {
 </script>
 
 <style>
-.news-channel__add-button {
-  border: none;
-  background-color: rgb(34, 241, 151);
-  padding: 15px 15px;
-  border-radius: 50%;
-  color: white;
-  align-self: flex-end;
-  background-image: url("../assets/addButtonWhite.png");
-  background-size: 10px;
-  background-repeat: no-repeat;
-  background-position: center;
+.news-channel {
+  max-width: 800px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.pagination {
-  margin: 0 auto;
-  padding: 10px;
-  display: flex;
-  width: 300px;
-  list-style-type: none;
-  justify-content: space-between;
-  font-weight: 500;
-  font-size: 20px;
-  color: rgb(55, 105, 105);
+.news-channel__title {
+  text-align: center;
+}
+
+.news-channel__add-button {
+  border: none;
+  background-color: rgb(160, 193, 179);
+  padding: 20px 20px;
+  border-radius: 50%;
+  color: white;
+  align-self: end;
+  background-image: url("../assets/icon__add-button.png");
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.news-channel__add-button:hover {
+  opacity: 0.5;
+  cursor: pointer;
 }
 </style>
