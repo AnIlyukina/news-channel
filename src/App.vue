@@ -53,7 +53,6 @@ export default {
   methods: {
     ...mapActions(["setPosts"]),
     getPosts() {
-      console.log("sg");
       this.setPosts();
     },
   },

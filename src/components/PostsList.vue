@@ -78,7 +78,6 @@ export default {
   mixins: [paginationMixin],
   methods: {
     sortByCategories(category) {
-      console.log(category);
       if (category.value === "all") {
         this.selected = "Все";
         this.sortedProducts = this.allPosts;

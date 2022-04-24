@@ -97,7 +97,6 @@ export const store = new Vuex.Store(
               }
               return object
             }))
-            console.log(newData)
             commit('setPosts', newData.slice(0, 10))
           }
           else {

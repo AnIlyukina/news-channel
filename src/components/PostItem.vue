@@ -83,7 +83,6 @@ export default {
     },
 
     onEditClick() {
-      console.log(this.post);
       this.setEditedPost(this.post);
       this.setPopupAddVisible(true);
     },
@@ -91,7 +90,6 @@ export default {
       this.isOpenAllBody = true;
     },
     onLikeClick() {
-      console.log("лайк");
       this.likePost(this.post);
     },
     onCloseAllBody() {
