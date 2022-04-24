@@ -33,6 +33,7 @@
           @click.enter.prevent="createNewPost"
           type="submit"
           :class="['popup__button', !modelValid && 'disabled']"
+          :disabled="!modelValid"
         >
           Сохранить
         </button>
@@ -52,6 +53,7 @@ export default {
         id: this.editedPost.id,
         title: this.editedPost.title,
         body: this.editedPost.body,
+        isLikeActive: this.editedPost.isLikeActive,
       };
     }
   },
@@ -90,7 +92,11 @@ export default {
         });
         this.setPopupVisible(true);
       } else {
-        this.createPost({ id: this.allPosts.length + 1, ...this.post });
+        this.createPost({
+          id: this.allPosts.length + 1,
+          isLikeActive: false,
+          ...this.post,
+        });
         this.setPopupAddVisible(false);
       }
     },

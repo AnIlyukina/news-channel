@@ -1,8 +1,19 @@
 <template>
   <li class="posts-list__item">
     <div class="posts-list__item-block posts-list__item-block_type_title">
+      <button
+        :class="[
+          post.isLikeActive
+            ? 'posts-list__button post-list__button_type_like active-like'
+            : 'posts-list__button post-list__button_type_like',
+        ]"
+        @click="onLikeClick"
+      ></button>
       <h2 class="posts-list__title">{{ post.title }}</h2>
-      <button class="posts-list__delete-button" @click="onDeleteClick"></button>
+      <button
+        class="posts-list__button post-list__button_type_delete"
+        @click="onDeleteClick"
+      ></button>
     </div>
     <div class="posts-list__item-block posts-list__item-block_type_body">
       <p
@@ -16,15 +27,17 @@
         v-if="isOpenAllBody === false"
         @click="onOpenAllBody"
         class="posts-list__more-button"
-        >...</span
-      >
+      ></span>
       <span
         v-if="isOpenAllBody"
         @click="onCloseAllBody"
         class="posts-list__less-button"
       ></span>
     </div>
-    <button class="posts-list__edit-button" @click="onEditClick"></button>
+    <button
+      class="posts-list__button post-list__button_type_edit"
+      @click="onEditClick"
+    ></button>
   </li>
 </template>
 
@@ -55,9 +68,9 @@ export default {
       "setPopupAddVisible",
       "setPopupType",
       "setEditedPost",
+      "likePost",
     ]),
     onDeleteClick() {
-      console.log("s");
       this.setPopupType({
         title: "Удалить пост?",
         popupFunction: this.delete,
@@ -66,18 +79,20 @@ export default {
     },
 
     delete() {
-      console.log("d");
       this.deletePost(this.index);
     },
 
     onEditClick() {
-      console.log("редактировать");
       console.log(this.post);
       this.setEditedPost(this.post);
       this.setPopupAddVisible(true);
     },
     onOpenAllBody() {
       this.isOpenAllBody = true;
+    },
+    onLikeClick() {
+      console.log("лайк");
+      this.likePost(this.post);
     },
     onCloseAllBody() {
       this.isOpenAllBody = false;
@@ -114,31 +129,43 @@ export default {
   text-align: justify;
 }
 
-.posts-list__delete-button {
+.posts-list__button {
   max-width: 30px;
   width: 100%;
+  height: 30px;
   background-size: 25px;
-  background-position: start;
+  background-position: center;
   background-repeat: no-repeat;
   color: rgba(0, 0, 0, 0.556);
   border: none;
   background-color: transparent;
-  background-image: url("../assets/icon__delete.svg");
   transition: opacity 0.3s ease-in-out;
 }
+.post-list__button_type_delete {
+  background-image: url("../assets/icon__delete.svg");
+}
 
+.post-list__button_type_edit {
+  background-image: url("../assets/icons__edit-button.svg");
+  margin-top: 10px;
+}
+
+.post-list__button_type_like {
+  background-image: url("../assets/icon__like.png");
+}
+.active-like {
+  background-image: url("../assets/icon__like_active.png");
+}
 .posts-list__delete-button:hover {
   opacity: 0.5;
   cursor: pointer;
 }
 .posts-list__more-button {
-  display: flex;
-  margin-left: 4px;
-  font-size: 20px;
-  font-weight: 600;
-  align-items: flex-end;
-  transition: opacity 0.3s ease-in-out;
-  color: gray;
+  padding: 0px 15px;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: 15px;
+  background-image: url("../assets/icon__more-button.png");
 }
 .active-more {
   height: 100%;
@@ -155,19 +182,6 @@ export default {
   background-repeat: no-repeat;
   background-size: 15px;
   background-image: url("../assets/icon__less-button.png");
-}
-
-.posts-list__edit-button {
-  padding: 14px;
-  background-size: 24px;
-  background-position: start;
-  background-repeat: no-repeat;
-  color: rgba(0, 0, 0, 0.556);
-  margin-top: 5px;
-  border: none;
-  background-color: transparent;
-  background-image: url("../assets/icons__edit-button.svg");
-  transition: opacity 0.3s ease-in-out;
 }
 
 .posts-list__edit-button:hover {

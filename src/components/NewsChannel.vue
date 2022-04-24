@@ -1,7 +1,9 @@
 <template>
   <main class="news-channel">
-    <h1 class="news-channel__title">Инфо-блог</h1>
-    <button class="news-channel__add-button" @click="onAddClick"></button>
+    <div class="news-channel__header">
+      <h1 class="news-channel__title">Инфо-блог</h1>
+      <button class="news-channel__add-button" @click="onAddClick"></button>
+    </div>
     <PostsList />
   </main>
 </template>
@@ -28,7 +30,12 @@ export default {
   max-width: 800px;
   height: 100vh;
   display: flex;
+  align-items: center;
   flex-direction: column;
+}
+
+.news-channel__header {
+  display: flex;
 }
 
 .news-channel__title {
@@ -36,6 +43,7 @@ export default {
 }
 
 .news-channel__add-button {
+  margin-left: 50px;
   border: none;
   background-color: rgb(233, 152, 152);
   padding: 20px 20px;

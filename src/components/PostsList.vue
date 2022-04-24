@@ -1,5 +1,10 @@
 <template>
   <section class="posts-list">
+    <Select
+      :selected="selected"
+      :options="categories"
+      @select="sortByCategories"
+    />
     <ul class="posts-list__grid">
       <PostItem
         v-for="(post, index) in items"
@@ -24,24 +29,58 @@
 import PostItem from "./PostItem.vue";
 import paginationMixin from "../mixins/MixinPagination";
 import { mapGetters } from "vuex";
+import Select from "./Select.vue";
 
 export default {
   name: "PostsList",
+  data() {
+    return {
+      categories: [
+        { name: "Все", value: "all" },
+        { name: "Понравившиеся", value: "isLiked" },
+      ],
+      selected: "Все",
+      sortedProducts: [],
+    };
+  },
   components: {
     PostItem,
+    Select,
   },
   computed: {
     ...mapGetters(["allPosts"]),
   },
   watch: {
+    sortedProducts: function () {
+      return this.setUpPagination(this.sortedProducts);
+    },
     allPosts: function () {
-      return this.setUpPagination(this.allPosts);
+      this.sortedProducts = this.allPosts.filter(
+        (item) => item.isLikeActive === true
+      );
     },
   },
   mounted() {
-    this.setUpPagination(this.allPosts);
+    this.sortedProducts = this.allPosts;
+    this.setUpPagination(this.sortedProducts);
   },
   mixins: [paginationMixin],
+  methods: {
+    sortByCategories(category) {
+      console.log(category);
+      if (category.value === "all") {
+        this.selected = "Все";
+        this.sortedProducts = this.allPosts;
+      }
+      if (category.value === "isLiked") {
+        this.selected = "Понравившиеся";
+        this.sortedProducts = this.allPosts.filter(
+          (item) => item.isLikeActive === true
+        );
+        console.log(this.sortedProducts);
+      }
+    },
+  },
 };
 </script>
 

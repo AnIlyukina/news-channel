@@ -44,6 +44,9 @@ export const store = new Vuex.Store(
       createPost: (state, payload) => {
         state.posts.unshift(payload)
       },
+      likePost: (state, payload) => {
+        state.posts.find(i => i.id === payload.id).isLikeActive = !state.posts.find(i => i.id === payload.id).isLikeActive
+      },
       deletePost: (state, payload) => {
         state.posts.splice(payload, 1)
       },
@@ -73,6 +76,9 @@ export const store = new Vuex.Store(
       createPost: (context, payload) => [
         context.commit('createPost', payload)
       ],
+      likePost: (context, payload) => {
+        context.commit('likePost', payload)
+      },
       deletePost: (context, payload) => {
         context.commit('deletePost', payload)
       },
@@ -82,7 +88,17 @@ export const store = new Vuex.Store(
           const response = await getPosts()
           if (response.status === 200) {
             const data = await response.json()
-            commit('setPosts', data.slice(0, 10))
+            let newData = data.map((post => {
+              let object = {
+                isLikeActive: false,
+                id: post.id,
+                title: post.title,
+                body: post.body,
+              }
+              return object
+            }))
+            console.log(newData)
+            commit('setPosts', newData.slice(0, 10))
           }
           else {
             dispatch('setErrorMessage', await response.text())
