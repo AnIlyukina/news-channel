@@ -78,12 +78,6 @@ body,
   flex-direction: column;
   padding: 20px;
   min-width: 320px;
-  background: radial-gradient(
-    circle,
-    rgba(198, 198, 198, 0.5) 0%,
-    rgba(204, 175, 192, 0.4) 52%,
-    rgba(0, 0, 0, 0.5) 100%
-  );
 }
 .app__get-button {
   margin-top: 50px;

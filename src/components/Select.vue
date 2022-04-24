@@ -60,6 +60,7 @@ export default {
   width: 200px;
   position: relative;
   box-sizing: border-box;
+  margin-bottom: 50px;
 }
 .select__title {
   margin: 0;

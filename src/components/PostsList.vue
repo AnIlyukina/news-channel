@@ -5,6 +5,9 @@
       :options="categories"
       @select="sortByCategories"
     />
+    <span v-if="sortMessage" class="posts-list__sort-message">
+      {{ sortMessage }}</span
+    >
     <ul class="posts-list__grid">
       <PostItem
         v-for="(post, index) in items"
@@ -14,6 +17,7 @@
       />
     </ul>
     <Paginate
+      v-if="sortedProducts.length > 0"
       v-model="page"
       :page-count="pageCount"
       :click-handler="handleChangePage"
@@ -41,6 +45,7 @@ export default {
       ],
       selected: "Все",
       sortedProducts: [],
+      sortMessage: "",
     };
   },
   components: {
@@ -55,9 +60,15 @@ export default {
       return this.setUpPagination(this.sortedProducts);
     },
     allPosts: function () {
-      this.sortedProducts = this.allPosts.filter(
-        (item) => item.isLikeActive === true
-      );
+      if (this.selected === "Понравившиеся") {
+        this.selected = "Понравившиеся";
+        this.sortedProducts = this.allPosts.filter(
+          (item) => item.isLikeActive === true
+        );
+      } else {
+        this.selected = "Все";
+        this.sortedProducts = this.allPosts;
+      }
     },
   },
   mounted() {
@@ -71,13 +82,16 @@ export default {
       if (category.value === "all") {
         this.selected = "Все";
         this.sortedProducts = this.allPosts;
+        this.sortMessage = "";
       }
       if (category.value === "isLiked") {
         this.selected = "Понравившиеся";
         this.sortedProducts = this.allPosts.filter(
           (item) => item.isLikeActive === true
         );
-        console.log(this.sortedProducts);
+        if (this.sortedProducts.length === 0) {
+          this.sortMessage = "Понравившихся публикаций нет";
+        }
       }
     },
   },
@@ -87,6 +101,7 @@ export default {
 <style>
 .posts-list {
   max-width: 600px;
+  width: 100%;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -103,7 +118,9 @@ export default {
   grid-row-gap: 10px;
   list-style-type: none;
 }
-
+.posts-list__sort-message {
+  align-self: start;
+}
 .pagination {
   margin: 0 auto;
   padding: 10px;
